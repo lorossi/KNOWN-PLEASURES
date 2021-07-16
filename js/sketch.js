@@ -6,7 +6,7 @@ class Sketch extends Engine {
     this._time_scl = 0.75;
     this._min_relative_height = 0.6;
     this._animating = true;
-    this._recording = true;
+    this._recording = false;
   }
 
   setup() {
@@ -19,14 +19,18 @@ class Sketch extends Engine {
     this._noise = new SimplexNoise();
     // create waves
     this._waves = [];
+    // spacing between lines
     const spacing = this.height * (1 - this._border) / (this._waves_num + 1);
+    // line width
     const wave_width = this.width * (1 - this._border);
+    // wave x coordinate
     const wx = this.width * this._border / 2;
     for (let i = 0; i < this._waves_num; i++) {
-
+      // height percent
       const y_percent = 1 - (Math.abs(i - this._waves_num / 2)) / this._waves_num * 2;
-
-      const y_easing = easeInOutSine(clamp(y_percent, this._min_relative_height, 1));
+      // easing
+      const y_easing = esseInOutSinePow(clamp(y_percent, this._min_relative_height, 1));
+      // wave y coordinate
       const wy = spacing * (i + 1);
       this._waves.push(new Wave(wx, wy, wave_width, spacing * y_easing, this._noise));
     }
@@ -40,7 +44,9 @@ class Sketch extends Engine {
       console.log("%c Recording started", "color: green; font-size: 2rem");
     }
 
+    // percent of time elapsed
     const percent = (this.frameCount % this._duration) / this._duration;
+    // time coordinates calculation, relative to noise
     const time_theta = percent * Math.PI * 2;
     const tx = this._time_scl * (10 + Math.cos(time_theta));
     const ty = this._time_scl * (10 + Math.sin(time_theta));
@@ -51,6 +57,7 @@ class Sketch extends Engine {
     this.ctx.fillRect(0, 0, this.width, this.height);
 
     this.ctx.translate(0, this._border * this.height / 2);
+    // draw and move all lines
     this._waves.forEach(w => {
       w.move(tx, ty);
       w.show(this.ctx);
@@ -86,6 +93,5 @@ class Sketch extends Engine {
   }
 }
 
-const easeInOutQuart = x => x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2;
-const easeInOutSine = x => -(Math.cos(Math.PI * x) - 1) / 2;
+const esseInOutSinePow = x => (-(Math.cos(Math.PI * x) - 1) / 2) ** 3;
 const clamp = (x, min = 0, max = 1) => Math.min(Math.max(x, min), max);

@@ -13,19 +13,21 @@ class Wave {
     this._noise_depth = 2;
     this._border = 0.2;
 
-    this._seed = Math.random() * 1000;
+    this._seed = Math.random() * 1000; // random seed for each wave
     this._dy = [];
   }
 
   move(tx, ty) {
+    // compute vertical displacement
     this._dy = [];
     for (let i = 0; i <= this._w; i += this._scl) {
-      const nx = i * this._noise_scl;
-      const n = this._generateNoise(tx, ty, nx, this._seed);
-
+      // noise coordinate
+      const n_pos = i * this._noise_scl;
+      const n = this._generateNoise(tx, ty, n_pos, this._seed);
+      // angle relative to space position, used to modulate the wave
       const space_theta = Math.PI * i / this._w;
-      const modulation = easeInOutSine(Math.sin(space_theta) ** 3);
-
+      const modulation = esseInOutSinePow(Math.sin(space_theta));
+      // compute displacement and add to list
       const dy = -this._spacing * n * modulation * this._dy_amplification;
       this._dy.push(dy);
     }
@@ -37,14 +39,12 @@ class Wave {
 
     ctx.strokeStyle = "white";
     ctx.fillStyle = "black";
-
     ctx.lineWidth = this._line_width;
-
+    // draw all points 
     ctx.beginPath();
     ctx.moveTo(0, this._dy[0]);
-    for (let i = 1; i < this._dy.length; i++) {
-      ctx.lineTo((i) * this._scl, this._dy[i]);
-    }
+    this._dy.forEach((p, i) => ctx.lineTo(i * this._scl, p));
+
     ctx.fill();
     ctx.stroke();
 
@@ -53,6 +53,7 @@ class Wave {
   }
 
   _generateNoise(x = 0, y = 0, z = 0, w = 0) {
+    // generate noise of multiple harmonics
     let n = 0;
     let total_amplification = 0;
     for (let i = 0; i < this._noise_depth; i++) {
