@@ -17,6 +17,14 @@ I wanted to try and give a personal spin to it, so here we go.
 
 Check out the rendered output on my [Instagram account](https://instagram.com/lorossi97) or scroll down a little bit to see a choppier, low quality version.
 
+[gif](output/output.gif)
+
+[still-1](output/0000038.png)
+
+[still-2](output/0000341.png)
+
+[still-3](output/0000561.png)
+
 ## Credits
 
 This project is distributed under MIT license.
