@@ -1,6 +1,6 @@
 # KNOWN PLEASURES
 
-The 15 of June 1979, a then unknown band named "Joy Division" released their debut album.
+The 15 of June 1979, a then unknown band named _"Joy Division" _released their debut album, _Unknown Pleasures_.
 No single was from that album was released, and the album did not chart (not even in the UK).
 
 Only a few years later, after the main singer died, the album got the attention that it deserved.
@@ -17,13 +17,13 @@ I wanted to try and give a personal spin to it, so here we go.
 
 Check out the rendered output on my [Instagram account](https://instagram.com/lorossi97) or scroll down a little bit to see a choppier, low quality version.
 
-[gif](output/output.gif)
+![gif](output/output.gif)
 
-[still-1](output/0000038.png)
+![still-1](output/0000038.png)
 
-[still-2](output/0000341.png)
+![still-2](output/0000341.png)
 
-[still-3](output/0000561.png)
+![still-3](output/0000561.png)
 
 ## Credits
 
